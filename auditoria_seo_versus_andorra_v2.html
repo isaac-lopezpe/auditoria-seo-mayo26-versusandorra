@@ -1,0 +1,476 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Georgia',var(--font-sans);color:var(--color-text-primary);line-height:1.75;font-size:16px}
+.wrap{max-width:680px;margin:0 auto;padding:2.5rem 0}
+
+.cover{background:var(--color-background-secondary);border-radius:16px;padding:2rem 2rem 1.75rem;margin-bottom:2.5rem;border:0.5px solid var(--color-border-tertiary)}
+.cover-badge{display:inline-block;font-size:13px;font-weight:500;padding:5px 14px;border-radius:20px;background:#E6F1FB;color:#185FA5;margin-bottom:1rem}
+.cover h1{font-size:24px;font-weight:500;margin-bottom:0.4rem;font-family:var(--font-sans)}
+.cover p{font-size:15px;color:var(--color-text-secondary);margin-bottom:0.25rem}
+.cover .meta{font-size:13px;color:var(--color-text-tertiary);margin-top:1rem;padding-top:1rem;border-top:0.5px solid var(--color-border-tertiary)}
+
+.section{margin-bottom:3rem}
+.section-label{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem}
+.section-num{width:32px;height:32px;border-radius:50%;background:#185FA5;color:#fff;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.section-title{font-size:19px;font-weight:500;font-family:var(--font-sans)}
+.section-intro{font-size:15px;color:var(--color-text-secondary);margin-bottom:1.25rem;line-height:1.75}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:1.5rem}
+.kpi{background:var(--color-background-secondary);border-radius:12px;padding:1.1rem;text-align:center;border:0.5px solid var(--color-border-tertiary)}
+.kpi-num{font-size:28px;font-weight:500;line-height:1.15}
+.kpi-label{font-size:12px;color:var(--color-text-tertiary);margin-top:5px;line-height:1.4}
+.kpi-sub{font-size:11px;margin-top:3px;font-weight:500}
+
+.highlight-box{border-left:4px solid #185FA5;padding:1rem 1.25rem;background:#E6F1FB;border-radius:0 12px 12px 0;margin:1.25rem 0}
+.highlight-box p{font-size:15px;color:#0C447C;margin:0;line-height:1.75}
+
+.warn-box{border-left:4px solid #BA7517;padding:1rem 1.25rem;background:#FAEEDA;border-radius:0 12px 12px 0;margin:1.25rem 0}
+.warn-box p{font-size:15px;color:#633806;margin:0;line-height:1.75}
+
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1rem}
+.card-title{font-size:15px;font-weight:500;margin-bottom:0.75rem;display:flex;align-items:center;gap:8px}
+
+.row-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:0.5px solid var(--color-border-tertiary);gap:1rem}
+.row-item:last-child{border-bottom:none;padding-bottom:0}
+.row-label{font-size:14px;color:var(--color-text-primary);flex:1;line-height:1.5}
+.row-count{font-size:14px;font-weight:500;min-width:44px;text-align:right}
+.row-explain{font-size:12px;color:var(--color-text-tertiary);margin-top:2px}
+
+.pill{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500;white-space:nowrap}
+.pill-red{background:#FCEBEB;color:#A32D2D}
+.pill-amber{background:#FAEEDA;color:#854F0B}
+.pill-blue{background:#E6F1FB;color:#185FA5}
+.pill-green{background:#EAF3DE;color:#3B6D11}
+
+.speed-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:15px}
+.speed-row:last-child{border-bottom:none}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:8px;flex-shrink:0}
+.dot-green{background:#27a05a}
+.dot-amber{background:#e09400}
+.dot-red{background:#e24b4a}
+
+.meta-card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.25rem}
+.meta-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:8px}
+.meta-card-name{font-size:16px;font-weight:500}
+.meta-field{margin-bottom:0.85rem}
+.meta-field:last-child{margin-bottom:0}
+.meta-key{font-size:12px;color:var(--color-text-tertiary);margin-bottom:3px;font-weight:500;text-transform:uppercase;letter-spacing:0.03em}
+.meta-val{font-size:14px;color:var(--color-text-primary);line-height:1.5}
+.meta-issue{font-size:12px;margin-top:3px;font-weight:500}
+.meta-issue-red{color:#A32D2D}
+.meta-issue-amber{color:#854F0B}
+.meta-issue-green{color:#3B6D11}
+
+.priority-table{width:100%;border-collapse:collapse;font-size:14px}
+.priority-table th{text-align:left;font-weight:500;font-size:12px;color:var(--color-text-tertiary);padding:7px 8px;border-bottom:0.5px solid var(--color-border-tertiary);text-transform:uppercase;letter-spacing:0.03em}
+.priority-table td{padding:10px 8px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);font-size:14px;vertical-align:top}
+.priority-table td:first-child{color:var(--color-text-primary);font-weight:500}
+.priority-table tr:last-child td{border-bottom:none}
+
+.lang-table{width:100%;border-collapse:collapse;font-size:13px}
+.lang-table th{text-align:left;font-size:12px;font-weight:500;color:var(--color-text-tertiary);padding:6px 8px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.lang-table td{padding:8px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary)}
+.lang-table td:first-child{color:var(--color-text-primary);font-weight:500}
+.lang-table tr:last-child td{border-bottom:none}
+
+.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:2.5rem 0}
+.footer{font-size:12px;color:var(--color-text-tertiary);padding-top:1.25rem;border-top:0.5px solid var(--color-border-tertiary);text-align:center;line-height:1.7}
+
+.rec-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.rec-item:last-child{border-bottom:none}
+.rec-icon{font-size:18px;padding-top:2px;flex-shrink:0}
+.rec-text{font-size:14px;color:var(--color-text-secondary);line-height:1.65}
+.rec-text strong{color:var(--color-text-primary);font-weight:500}
+</style>
+
+<div class="wrap">
+
+<div class="cover">
+  <div class="cover-badge">Informe de Auditoría SEO — Mayo 2026</div>
+  <h1>Estado técnico de versusandorra.com</h1>
+  <p>Diagnóstico completo del sitio como punto de partida para la migración a WordPress.</p>
+  <div class="meta">
+    Fecha del análisis: 16 de mayo de 2026 &nbsp;·&nbsp; Elaborado por: <strong>Isaac López</strong> &nbsp;·&nbsp; Agencia: <strong>Sinapsis</strong><br>
+    Cliente: Versus Andorra &nbsp;·&nbsp; Sitio analizado: versusandorra.com
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">
+    <div class="section-num">1</div>
+    <div class="section-title">Resumen ejecutivo</div>
+  </div>
+  <p class="section-intro">Este informe documenta la situación técnica real del sitio web en su versión actual (HTML estático), antes de iniciar el rediseño en WordPress. El objetivo es doble: registrar los problemas existentes para no replicarlos en la nueva plataforma, y aprovechar la migración para construir una arquitectura SEO sólida desde el primer día.</p>
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-num" style="color:#d85a30">64%</div>
+      <div class="kpi-label">Salud general del sitio</div>
+      <div class="kpi-sub" style="color:#BA7517">Necesita mejoras</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-num" style="color:#e24b4a">1.065</div>
+      <div class="kpi-label">Problemas críticos detectados</div>
+      <div class="kpi-sub" style="color:#A32D2D">Prioridad alta</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-num" style="color:#ba7517">1.629</div>
+      <div class="kpi-label">Advertencias activas</div>
+      <div class="kpi-sub" style="color:#854F0B">Prioridad media</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-num" style="color:#27a05a">98%</div>
+      <div class="kpi-label">Velocidad de carga</div>
+      <div class="kpi-sub" style="color:#3B6D11">Excelente</div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <p>La velocidad del sitio es un activo valioso y hay que preservarlo en WordPress. El trabajo crítico está en la arquitectura interna: Google no navega bien el sitio porque hay páginas desconectadas, títulos duplicados y metadatos mal configurados. La migración es la oportunidad ideal para resolverlo todo desde cero.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <div class="section-label">
+    <div class="section-num">2</div>
+    <div class="section-title">Velocidad y rendimiento técnico</div>
+  </div>
+  <p class="section-intro">Este es el punto más fuerte del sitio actual. Los tiempos de carga son sobresalientes y la experiencia del usuario no tiene fricciones visibles. Es fundamental mantener este nivel al migrar a WordPress, ya que los temas y plugins pueden afectar negativamente la velocidad si no se eligen con criterio.</p>
+
+  <div class="card">
+    <div class="speed-row"><span><span class="dot dot-green"></span>Primera carga visible de contenido (FCP)</span><span style="font-weight:500;color:#27a05a">0,6 s</span></div>
+    <div class="speed-row"><span><span class="dot dot-green"></span>Carga del elemento principal de la página (LCP)</span><span style="font-weight:500;color:#27a05a">0,7 s</span></div>
+    <div class="speed-row"><span><span class="dot dot-green"></span>Tiempo de bloqueo de interacción (TBT)</span><span style="font-weight:500;color:#27a05a">0 ms</span></div>
+    <div class="speed-row"><span><span class="dot dot-green"></span>Estabilidad visual de la página (CLS)</span><span style="font-weight:500;color:#27a05a">0,006</span></div>
+    <div class="speed-row"><span><span class="dot dot-amber"></span>Velocidad de carga visual completa (Speed Index)</span><span style="font-weight:500;color:#e09400">1,5 s — mejorable</span></div>
+    <div class="speed-row"><span><span class="dot dot-green"></span>Puntuación de accesibilidad general</span><span style="font-weight:500;color:#27a05a">97%</span></div>
+  </div>
+
+  <h3 style="font-size:16px;font-weight:500;margin:1.25rem 0 0.5rem">Dos ajustes técnicos pendientes</h3>
+  <p class="section-intro">El sitio carga rápido, pero tiene dos archivos que cargan código que nunca llega a usarse. En la nueva web hay que evitar repetir este patrón eligiendo un tema ligero y revisando qué plugins se activan:</p>
+
+  <div class="card">
+    <div class="row-item">
+      <div><div class="row-label">CSS sin usar — código de estilos que se descarga pero no se aplica</div><div class="row-explain">Archivo: _next/static/css/92a50a...css</div></div>
+      <span class="pill pill-amber">Ahorro: 21 KB</span>
+    </div>
+    <div class="row-item">
+      <div><div class="row-label">JavaScript sin usar — funciones que se cargan pero no se ejecutan</div><div class="row-explain">Archivo: _next/static/chunks/5339-6b7f...js</div></div>
+      <span class="pill pill-amber">Ahorro: 31 KB</span>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <div class="section-label">
+    <div class="section-num">3</div>
+    <div class="section-title">Análisis de páginas principales — metadatos SEO</div>
+  </div>
+  <p class="section-intro">Estos son los datos reales de las páginas más importantes del sitio. Los metadatos son las "etiquetas de identidad" que Google lee para decidir qué mostrar en los resultados de búsqueda. Un título demasiado largo se corta en Google; una descripción demasiado corta no atrae clics.</p>
+
+  <div class="meta-card">
+    <div class="meta-card-header">
+      <span class="meta-card-name">Página de inicio — /es</span>
+      <span class="pill pill-red">Título fuera de límite</span>
+    </div>
+    <div class="meta-field">
+      <div class="meta-key">Título SEO actual</div>
+      <div class="meta-val">Inmobiliaria en Andorra | Compra, Venta y Alquiler | Versus Andorra | Versus Andorra</div>
+      <div class="meta-issue meta-issue-red">84 caracteres — el límite recomendado es 60. Google lo cortará en los resultados. Además, "Versus Andorra" aparece duplicado al final.</div>
+    </div>
+    <div class="meta-field">
+      <div class="meta-key">Meta description</div>
+      <div class="meta-val">Inmobiliaria líder en Andorra. Compra, vende o alquila pisos, casas y áticos con los mejores expertos del mercado andorrano. Valoración gratuita.</div>
+      <div class="meta-issue meta-issue-green">145 caracteres — dentro del límite. Correcto.</div>
+    </div>
+    <div class="meta-field">
+      <div class="meta-key">Jerarquía de headings</div>
+      <div class="meta-val">H1: "Propiedades en Andorra (42)" — seguido directamente de 42 H3 con nombres de propiedades. No hay ningún H2 intermedio que organice el contenido.</div>
+      <div class="meta-issue meta-issue-amber">Falta una capa de H2 que agrupe las secciones. Google necesita jerarquía clara: H1 → H2 → H3.</div>
+    </div>
+    <div class="meta-field">
+      <div class="meta-key">Indexabilidad y canonical</div>
+      <div class="meta-val">Indexable. Canonical apunta correctamente a sí misma.</div>
+      <div class="meta-issue meta-issue-green">Correcto.</div>
+    </div>
+  </div>
+
+  <div class="meta-card">
+    <div class="meta-card-header">
+      <span class="meta-card-name">Parroquias — /es/parroquias</span>
+      <span class="pill pill-red">Descripción demasiado larga</span>
+    </div>
+    <div class="meta-field">
+      <div class="meta-key">Título SEO actual</div>
+      <div class="meta-val">Parroquias de Andorra | Guía Completa de las 7 Zonas para Vivir | Versus Andorra</div>
+      <div class="meta-issue meta-issue-amber">80 caracteres — ligeramente por encima del límite de 60. Puede cortarse en pantallas pequeñas.</div>
+    </div>
+    <div class="meta-field">
+      <div class="meta-key">Meta description</div>
+      <div class="meta-val">Descubre las 7 parroquias de Andorra: Andorra la Vella, Escaldes-Engordany, Canillo, Encamp, La Massana, Ordino y Sant Julià. Precios inmobiliarios, servicios y calidad de vida en cada zona.</div>
+      <div class="meta-issue meta-issue-red">190 caracteres — supera los 155 recomendados. Google la truncará y se perderá el CTA final.</div>
+    </div>
+    <div class="meta-field">
+      <div class="meta-key">Indexabilidad y canonical</div>
+      <div class="meta-val">Indexable. Canonical correcto.</div>
+      <div class="meta-issue meta-issue-green">Correcto.</div>
+    </div>
+  </div>
+
+  <div class="meta-card">
+    <div class="meta-card-header">
+      <span class="meta-card-name">Servicios — /es/servicios</span>
+      <span class="pill pill-red">Título y descripción fuera de límite</span>
+    </div>
+    <div class="meta-field">
+      <div class="meta-key">Título SEO actual</div>
+      <div class="meta-val">Servicios Inmobiliarios en Andorra | Compra, Venta y Asesoría | Versus | Versus Andorra</div>
+      <div class="meta-issue meta-issue-red">87 caracteres — muy por encima del límite. "Versus" aparece duplicado innecesariamente.</div>
+    </div>
+    <div class="meta-field">
+      <div class="meta-key">Meta description</div>
+      <div class="meta-val">Servicios inmobiliarios completos en Andorra: compra, venta, alquiler, asesoría fiscal y due diligence. Más de 15 años de experiencia en el mercado andorrano.</div>
+      <div class="meta-issue meta-issue-red">158 caracteres — supera el límite. La frase sobre los 15 años de experiencia quedará cortada.</div>
+    </div>
+    <div class="meta-field">
+      <div class="meta-key">Indexabilidad y canonical</div>
+      <div class="meta-val">Indexable. Canonical correcto.</div>
+      <div class="meta-issue meta-issue-green">Correcto.</div>
+    </div>
+  </div>
+
+  <div class="meta-card">
+    <div class="meta-card-header">
+      <span class="meta-card-name">Nuestro equipo — /es/nuestro-equipo</span>
+      <span class="pill pill-amber">Descripción demasiado corta</span>
+    </div>
+    <div class="meta-field">
+      <div class="meta-key">Título SEO actual</div>
+      <div class="meta-val">Nuestro Equipo | Versus Andorra | Versus Andorra</div>
+      <div class="meta-issue meta-issue-amber">48 caracteres — dentro del límite, pero "Versus Andorra" se repite dos veces. El título no describe quiénes son ni qué hacen.</div>
+    </div>
+    <div class="meta-field">
+      <div class="meta-key">Meta description</div>
+      <div class="meta-val">Profesionales comprometidos con tu satisfacción</div>
+      <div class="meta-issue meta-issue-red">47 caracteres — demasiado corta. No aporta contexto, no incluye ninguna palabra clave relevante ni diferenciador de la empresa.</div>
+    </div>
+    <div class="meta-field">
+      <div class="meta-key">Indexabilidad y canonical</div>
+      <div class="meta-val">Indexable. Canonical correcto.</div>
+      <div class="meta-issue meta-issue-green">Correcto.</div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <p>Patrón común en todas las páginas: el X-Robots-Tag está ausente en todas las páginas analizadas. Aunque no es un error crítico, su implementación permite un control más preciso sobre cómo los robots de búsqueda tratan el contenido, especialmente en las versiones multiidioma.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <div class="section-label">
+    <div class="section-num">4</div>
+    <div class="section-title">Problemas de estructura interna</div>
+  </div>
+  <p class="section-intro">Google recorre el sitio como si fuera un mapa de carreteras: si hay callejones sin salida, páginas desconectadas o señales contradictorias, deja de indexar correctamente. Estos son los hallazgos más relevantes en la arquitectura actual.</p>
+
+  <div class="card">
+    <div class="row-item">
+      <div><div class="row-label">Páginas huérfanas — ningún enlace interno apunta a ellas</div><div class="row-explain">Google no las encuentra con facilidad y no las posiciona</div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="row-count" style="color:#e24b4a">357</span><span class="pill pill-red">Crítico</span></div>
+    </div>
+    <div class="row-item">
+      <div><div class="row-label">URL canónica no coincide con la del sitemap</div><div class="row-explain">Google ve la misma página declarada con dos direcciones distintas</div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="row-count" style="color:#e24b4a">350</span><span class="pill pill-red">Crítico</span></div>
+    </div>
+    <div class="row-item">
+      <div><div class="row-label">Enlaces rotos — apuntan a páginas que ya no existen</div><div class="row-explain">Señal negativa para Google y mala experiencia para el usuario</div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="row-count" style="color:#e24b4a">352</span><span class="pill pill-red">Crítico</span></div>
+    </div>
+    <div class="row-item">
+      <div><div class="row-label">Páginas inaccesibles para Google</div><div class="row-explain">El robot no puede entrar a estas URLs y no las indexa</div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="row-count" style="color:#e24b4a">6</span><span class="pill pill-red">Crítico</span></div>
+    </div>
+    <div class="row-item">
+      <div><div class="row-label">Títulos de página duplicados</div><div class="row-explain">Dos o más páginas con el mismo título confunden a Google</div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="row-count" style="color:#ba7517">103</span><span class="pill pill-amber">Advertencia</span></div>
+    </div>
+    <div class="row-item">
+      <div><div class="row-label">Páginas con poco contenido de texto</div><div class="row-explain">Google considera que no aportan suficiente valor</div></div>
+      <div style="display:flex;align-items:center;gap:8px"><span class="row-count" style="color:#ba7517">115</span><span class="pill pill-amber">Advertencia</span></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <div class="section-label">
+    <div class="section-num">5</div>
+    <div class="section-title">El problema de los 6 idiomas — una reflexión estratégica</div>
+  </div>
+  <p class="section-intro">El sitio publica actualmente cada propiedad en seis idiomas: español, francés, inglés, catalán, portugués y ruso. A simple vista esto parece una ventaja, pero desde el punto de vista SEO genera más problemas de los que resuelve. A continuación explicamos por qué.</p>
+
+  <div class="card">
+    <div class="card-title"><i class="ti ti-world" aria-hidden="true" style="font-size:18px;color:#185FA5"></i> Situación actual por ficha de propiedad</div>
+    <table class="lang-table">
+      <thead>
+        <tr><th>Idioma</th><th>URL</th><th>Palabras</th><th>Salud</th><th>Errores</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Español (es)</td><td>/es/propiedades/...</td><td>356</td><td style="color:#e24b4a">0%</td><td style="color:#e24b4a">3</td></tr>
+        <tr><td>Francés (fr)</td><td>/fr/propiedades/...</td><td>396</td><td style="color:#e24b4a">0%</td><td style="color:#e24b4a">3</td></tr>
+        <tr><td>Inglés (en)</td><td>/en/propiedades/...</td><td>345</td><td style="color:#e24b4a">0%</td><td style="color:#e24b4a">3</td></tr>
+        <tr><td>Catalán (ca)</td><td>/ca/propiedades/...</td><td>357</td><td style="color:#e24b4a">0%</td><td style="color:#e24b4a">2</td></tr>
+        <tr><td>Portugués (pt)</td><td>/pt/propiedades/...</td><td>367</td><td style="color:#e24b4a">0%</td><td style="color:#e24b4a">2</td></tr>
+        <tr><td>Ruso (ru)</td><td>/ru/propiedades/...</td><td>312</td><td style="color:#e24b4a">0%</td><td style="color:#e24b4a">2</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:16px;font-weight:500;margin:1.25rem 0 0.75rem">¿Por qué tener 6 idiomas puede perjudicar el SEO?</h3>
+
+  <div class="card">
+    <div class="rec-item">
+      <div class="rec-icon"><i class="ti ti-copy" aria-hidden="true" style="color:#e24b4a"></i></div>
+      <div class="rec-text"><strong>Contenido casi duplicado:</strong> cuando las fichas de propiedades tienen entre 300 y 400 palabras en cada idioma y la mayor parte es información técnica (habitaciones, metros, servicios), Google las percibe como páginas casi idénticas. Esto diluye la autoridad en lugar de multiplicarla.</div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-icon"><i class="ti ti-route-off" aria-hidden="true" style="color:#e24b4a"></i></div>
+      <div class="rec-text"><strong>Presupuesto de rastreo repartido:</strong> Google tiene un límite de páginas que visita por sitio en cada ciclo. Con 6 versiones de cada ficha, el robot emplea 6 veces más recursos en páginas que aportan poco valor, en lugar de rastrear las páginas estratégicas con más frecuencia.</div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-icon"><i class="ti ti-settings" aria-hidden="true" style="color:#ba7517"></i></div>
+      <div class="rec-text"><strong>Configuración técnica compleja:</strong> cada versión idiomática requiere etiquetas hreflang correctas, canonicals coherentes y sitemaps actualizados. Actualmente esa configuración tiene 350 errores. Mantener 6 idiomas bien configurados requiere un esfuerzo técnico constante.</div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-icon"><i class="ti ti-pencil" aria-hidden="true" style="color:#ba7517"></i></div>
+      <div class="rec-text"><strong>Calidad de la traducción:</strong> el contenido en catalán, portugués y ruso suma menos de 370 palabras por ficha. Google evalúa la calidad del contenido en cada idioma de forma independiente. Una traducción superficial de una ficha escasa no posiciona en ese mercado.</div>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <p>La pregunta clave no es "¿en cuántos idiomas puedo estar?" sino "¿en qué idiomas tengo capacidad de posicionar bien y hay demanda real de búsqueda?" Tener 6 idiomas con contenido débil en todos es menos efectivo que tener 2 idiomas con contenido sólido y bien configurado.</p>
+  </div>
+
+  <h3 style="font-size:16px;font-weight:500;margin:1.25rem 0 0.75rem">Recomendación para la nueva web</h3>
+
+  <div class="card">
+    <div class="rec-item">
+      <div class="rec-icon"><i class="ti ti-check" aria-hidden="true" style="color:#27a05a"></i></div>
+      <div class="rec-text"><strong>Fase 1 — Lanzamiento en WordPress:</strong> publicar únicamente en español (mercado principal España + Andorra) y en francés (mercado Francia y andorrano francófono). Estos dos idiomas concentran la mayor demanda de búsqueda orgánica para el tipo de cliente de Versus Andorra.</div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-icon"><i class="ti ti-check" aria-hidden="true" style="color:#27a05a"></i></div>
+      <div class="rec-text"><strong>Fase 2 — Inglés cuando el contenido lo justifique:</strong> incorporar inglés únicamente si se tiene capacidad de producir descripciones de calidad en ese idioma y si los datos de Google Search Console muestran demanda real desde mercados anglófonos.</div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-icon"><i class="ti ti-x" aria-hidden="true" style="color:#e24b4a"></i></div>
+      <div class="rec-text"><strong>Catalán, portugués y ruso — pausar por ahora:</strong> el volumen de búsquedas inmobiliarias en Andorra en estos idiomas no justifica el coste técnico de mantenerlos bien configurados. Pueden reactivarse en el futuro con contenido de calidad y una estrategia específica por mercado.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <div class="section-label">
+    <div class="section-num">6</div>
+    <div class="section-title">Plan de acción para la migración a WordPress</div>
+  </div>
+  <p class="section-intro">Las acciones están organizadas por orden de impacto. Las de prioridad crítica deben resolverse durante el propio proceso de migración, no después del lanzamiento.</p>
+
+  <div class="card">
+    <table class="priority-table">
+      <thead>
+        <tr><th style="width:30%">Acción</th><th style="width:14%">Prioridad</th><th>Qué hay que hacer</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Reescribir títulos SEO de todas las páginas</td>
+          <td><span class="pill pill-red">Crítica</span></td>
+          <td>Máx. 60 caracteres. Sin repetir el nombre de la marca. Una plantilla por tipo de página.</td>
+        </tr>
+        <tr>
+          <td>Reducir a 2 idiomas en el lanzamiento</td>
+          <td><span class="pill pill-red">Crítica</span></td>
+          <td>Español y francés con hreflang y canonicals bien configurados desde el primer día.</td>
+        </tr>
+        <tr>
+          <td>Corregir URLs canónicas y sitemap</td>
+          <td><span class="pill pill-red">Crítica</span></td>
+          <td>350 páginas con canonical incorrecto. Configurar correctamente con el plugin de SEO de WordPress.</td>
+        </tr>
+        <tr>
+          <td>Conectar páginas huérfanas</td>
+          <td><span class="pill pill-red">Crítica</span></td>
+          <td>357 URLs sin enlace interno. Auditar y conectar desde menús, categorías o contenido relacionado.</td>
+        </tr>
+        <tr>
+          <td>Eliminar o redirigir enlaces rotos</td>
+          <td><span class="pill pill-red">Crítica</span></td>
+          <td>352 enlaces que apuntan a páginas inexistentes. Redirigir (301) o eliminar.</td>
+        </tr>
+        <tr>
+          <td>Reescribir meta descriptions</td>
+          <td><span class="pill pill-amber">Alta</span></td>
+          <td>Máx. 155 caracteres. Con CTA claro y keyword principal. Plantilla por tipo de página.</td>
+        </tr>
+        <tr>
+          <td>Corregir jerarquía H1 → H2 → H3</td>
+          <td><span class="pill pill-amber">Alta</span></td>
+          <td>Un solo H1 por página. Secciones estructuradas con H2. Las fichas de propiedades no deben saltar de H1 a H3.</td>
+        </tr>
+        <tr>
+          <td>Ampliar fichas de propiedades</td>
+          <td><span class="pill pill-amber">Alta</span></td>
+          <td>Mínimo 600 palabras por ficha. Descripción de zona, accesos, servicios, perfil del comprador ideal.</td>
+        </tr>
+        <tr>
+          <td>Configurar Open Graph completo</td>
+          <td><span class="pill pill-amber">Alta</span></td>
+          <td>Imagen, título y descripción correctos para que las comparticiones en redes sociales muestren una tarjeta profesional.</td>
+        </tr>
+        <tr>
+          <td>Implementar X-Robots-Tag</td>
+          <td><span class="pill pill-blue">Media</span></td>
+          <td>Activar desde el servidor o el plugin SEO para mayor control sobre la indexación.</td>
+        </tr>
+        <tr>
+          <td>Eliminar CSS y JS sin usar</td>
+          <td><span class="pill pill-blue">Media</span></td>
+          <td>Elegir un tema ligero en WordPress y revisar qué plugins cargan código innecesario.</td>
+        </tr>
+        <tr>
+          <td>Ajustar contraste de colores</td>
+          <td><span class="pill pill-blue">Baja</span></td>
+          <td>Cumplir ratio mínimo WCAG AA para textos sobre fondos claros.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <div class="section-label">
+    <div class="section-num">7</div>
+    <div class="section-title">Conclusión</div>
+  </div>
+  <div class="highlight-box">
+    <p>El sitio actual tiene una base técnica sólida en velocidad, pero arrastra problemas estructurales que limitan su visibilidad en Google. La migración a WordPress no es solo un cambio de plataforma: es la oportunidad de construir una arquitectura SEO correcta desde el primer día. Si se implementan las acciones críticas y de alta prioridad durante el rediseño, versusandorra.com estará en condiciones de competir con fuerza en los mercados de España, Andorra y Francia desde el momento del lanzamiento, sin arrastrar la deuda técnica del sitio actual.</p>
+  </div>
+</div>
+
+<div class="footer">
+  Informe preparado el 16 de mayo de 2026 &nbsp;·&nbsp; versusandorra.com<br>
+  Elaborado por <strong>Isaac López</strong> — Agencia <strong>Sinapsis</strong> &nbsp;·&nbsp; Uso exclusivo del cliente: Versus Andorra
+</div>
+
+</div>
